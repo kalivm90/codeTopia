@@ -7,11 +7,17 @@ export const metadata = {
     description: "Discover AI Prompts"
 }
 
-const RootLayout = ({children, session} : {children: any, session: any}) => {
+
+export default function RootLayout({children} : {
+    children: React.ReactNode,
+}){
+
+// console.log("HELLO", session);
+
   return (
     <html lang="en">
         <body>
-            <Provider session={session}>
+            <Provider>
                 <div className="main">
                     <div className="gradient"/>                
                 </div>
@@ -25,4 +31,3 @@ const RootLayout = ({children, session} : {children: any, session: any}) => {
   )
 }
 
-export default RootLayout

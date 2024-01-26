@@ -7,11 +7,12 @@ import {signIn, signOut, useSession, getProviders} from "next-auth/react"
 
 
 const Nav = () => {
-  const {data: session} = useSession();
+  const {data: session, status} = useSession();
   const [providers, setProviders] = useState<null | Record<any, any>>(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
+    console.log(session, providers, status);
     const setUpProviders = async () => {
       const response = await getProviders();
       if (response) {
@@ -20,7 +21,24 @@ const Nav = () => {
     }
 
     setUpProviders();
-  }, [])
+  }, [session, status])
+
+  // useEffect(() => {
+  //   // Fetch providers only if the session is available
+  //   console.log(status, session);
+  //   if (status === 'authenticated') {
+  //     const setUpProviders = async () => {
+  //       const response = await getProviders();
+  //       if (response) {
+  //         setProviders(response);
+  //       }
+  //     };
+
+  //     setUpProviders();
+  //   }
+  // }, [status]);
+
+
 
   // Using the signout function from next-auth directly in the element made typescript mad
   const handleSignOutClick: React.MouseEventHandler<HTMLButtonElement> = async (event) => {
