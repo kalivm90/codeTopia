@@ -2,14 +2,12 @@
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/navigation";
 
 // Import types
-import { IUser } from "@models/user";
 import { IPrompt } from "@models/prompt";
 // Component
 import Profile from "@components/Profile";
-
 
 const UsersPage = () => {
   const pathname = usePathname();
@@ -41,8 +39,8 @@ const UsersPage = () => {
       }
     };
 
-    // Only fetch if authed
-    if (session?.user.id) {
+    // Only fetch if authed and session?.user.id is defined
+    if (session?.user?.id) {
       // Fetch prompts and username when the component mounts
       getPrompts();
       getUsername();
@@ -50,7 +48,7 @@ const UsersPage = () => {
       router.push("/");
     }
 
-  }, [userId, searchParams]);
+  }, [userId, searchParams, router, session?.user?.id]);
 
   return <Profile name={username} desc="Very nice" data={prompts} />;
 };
