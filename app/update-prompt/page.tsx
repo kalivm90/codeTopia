@@ -1,14 +1,17 @@
 'use client';
-import React, { useEffect, useState } from "react";
+
+import React, { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import Form from "@components/Form";
 
+
 const EditPrompt = () => {
   const router = useRouter();
-  const [submitting, setSubmitting] = useState(false);
   const searchParams = useSearchParams();
   const promptId = searchParams.get("id");
+
+  const [submitting, setSubmitting] = useState(false);
 
   const [post, setPost] = useState({
     prompt: "",
@@ -57,14 +60,23 @@ const EditPrompt = () => {
 
 
   return (
-    <Form
-        type="Edit"
-        post={post}
-        setPost={setPost}
-        submitting={submitting}
-        handleSubmit={updatePrompt}
-    />
+      <Form
+          type="Edit"
+          post={post}
+          setPost={setPost}
+          submitting={submitting}
+          handleSubmit={updatePrompt}
+      />
   )
 }
 
-export default EditPrompt
+// export default EditPrompt
+
+/* Had to wrap this component in a suspense because of useSearchParams */
+export default function EditPromptSuspense() {
+  return (
+    <Suspense>
+      <EditPrompt/>
+    </Suspense>
+  )
+}
