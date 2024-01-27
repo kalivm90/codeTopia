@@ -4,15 +4,20 @@ import Provider from "../components/Provider";
 
 export const metadata = {
     title: "CodeTopia",
-    description: "Discover AI Prompts"
+    description: "Discover AI Prompts",
+    icons: {
+        icon: {
+            url: "icon.ico",
+            type: "image/ico"
+        }
+
+    }
 }
 
 
 export default function RootLayout({children} : {
     children: React.ReactNode,
 }){
-
-// console.log("HELLO", session);
 
   return (
     <html lang="en">
